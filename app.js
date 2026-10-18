@@ -243,6 +243,10 @@ for (const button of document.querySelectorAll('[data-scenario]')) button.addEve
   state.focus = bestFocus({ ...state, correction: scenario === 'hyperopia' ? 'hyperopia' : null });
   showingLimit = false;
   render();
+  $('#simulation').scrollIntoView({
+    behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth',
+    block: 'start',
+  });
 });
 
 $('#fullscreen').addEventListener('click', async () => {

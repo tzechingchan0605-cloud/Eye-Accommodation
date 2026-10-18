@@ -22,7 +22,7 @@ The application also works on a static host such as GitHub Pages: publish the re
 - Select **Normal Vision**, **Short-sightedness** or **Long-sightedness**. The latter two use a longer or shorter eyeball respectively.
 - Add a **concave** or **convex** spectacle lens. Selecting one removes the other. The eye condition and its accommodation remain independently adjustable.
 - **Adjust for clearest image / 調節至最清晰** selects the best focus available within the eye’s accommodation range. If a suitable corrective lens is still required, the interface explains why the image stays blurred.
-- The four teaching cards load near, distant, Short-sightedness and Long-sightedness examples. In the two defect examples, adding the matching corrective lens alone brings the image onto the retina.
+- The four teaching cards load near, distant, Short-sightedness and Long-sightedness examples, then scroll back up to the simulator. Scrolling is smooth unless the browser prefers reduced motion. In the two defect examples, adding the matching corrective lens alone brings the image onto the retina.
 - The anatomy slider reveals an original schematic cross-section. Reset restores the initial state while keeping the selected language. The fullscreen button expands the simulation where the browser permits it.
 
 At narrow widths, the drawing stays above the controls so students can operate the sliders on phones; desktop positioning follows the reference screenshots. Bifocal and progressive lenses are excluded.
