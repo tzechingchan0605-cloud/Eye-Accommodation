@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#ffffff">
+  <meta name="description" content="探索人眼的調節、近視、遠視及凹凸透鏡矯正。Interactive bilingual human-eye optics simulation.">
+  <title>人眼的光學 · Optics of the Human Eye</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main>
+    <header class="page-header">
+      <h1 data-i18n="title">人眼的光學</h1>
+      <button id="language" class="language-button" type="button" aria-label="Switch to English" lang="en">English <span aria-hidden="true">⇄</span></button>
+    </header>
+
+    <section class="simulation" id="simulation" aria-labelledby="simulation-title">
+      <h2 id="simulation-title" class="sr-only" data-i18n="simulationTitle">人眼光線模擬</h2>
+      <div class="simulation-layout">
+      <div class="drawing-area">
+        <svg id="diagram" viewBox="0 0 1260 630" role="img" aria-labelledby="diagram-title diagram-description">
+          <title id="diagram-title">人眼光線圖</title>
+          <desc id="diagram-description">光線從右方物體穿過晶狀體，在左方視網膜附近會聚。</desc>
+          <defs>
+            <marker id="label-arrow" viewBox="0 0 10 8" refX="9" refY="4" markerWidth="10" markerHeight="8" orient="auto"><path d="M0 0 L10 4 L0 8 Z" fill="#111"/></marker>
+            <marker id="ray-arrow" viewBox="0 0 8 8" refX="4" refY="4" markerWidth="5" markerHeight="5" orient="auto"><path d="M0 0 L8 4 L0 8" fill="none" stroke="#cd1550" stroke-width="1.5"/></marker>
+            <linearGradient id="lens-fill" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#e8f4ff"/><stop offset=".5" stop-color="#dceeff"/><stop offset="1" stop-color="#e8f4ff"/></linearGradient>
+          </defs>
+          <g id="anatomy" opacity="0" aria-hidden="true"></g>
+          <path id="eye-outline" fill="none" stroke="#171717" stroke-width="1.1"/>
+          <path id="retina" fill="none" stroke="#111" stroke-width="3.5" stroke-linecap="round"/>
+          <line x1="0" y1="315" x2="1260" y2="315" stroke="#666" stroke-width="1.5"/>
+          <ellipse id="eye-lens" cx="460" cy="315" rx="32" ry="94" fill="url(#lens-fill)" fill-opacity=".84" stroke="#9ccbea" stroke-width="2.3"/>
+          <path id="spectacle" fill="#e2f1ff" fill-opacity=".8" stroke="#80b5da" stroke-width="2"/>
+          <g id="rays" fill="none" stroke="#cd1550" stroke-width="2" stroke-linejoin="round"></g>
+          <g id="extensions" fill="none" stroke="#cd1550" stroke-width="1.5" stroke-dasharray="5 5" opacity=".6"></g>
+          <circle id="focus-point" r="3.4" fill="#cd1550"/>
+          <g class="diagram-labels" fill="#111" font-family="Arial, sans-serif" font-size="16">
+            <text id="retina-label" x="125" y="224" text-anchor="end">視網膜</text>
+            <path id="retina-label-line" fill="none" stroke="#111" stroke-width=".8" marker-end="url(#label-arrow)"/>
+            <text id="lens-label" x="460" y="513" text-anchor="middle">晶體</text>
+            <path d="M460 494 L460 425" fill="none" stroke="#111" stroke-width=".8" marker-end="url(#label-arrow)"/>
+            <text id="spectacle-label" x="545" y="187" text-anchor="middle" font-size="14" fill="#4d7d9c"></text>
+          </g>
+          <g id="object-handle" style="cursor:ew-resize">
+            <circle id="object-touch-target" r="20" fill="transparent"/>
+            <circle id="object-point" r="5" fill="#8b70e8" stroke="#25213d" stroke-width="1"/>
+          </g>
+          <text id="object-label" fill="#8b75be" font-family="Arial, sans-serif" font-size="13">物體</text>
+        </svg>
+      </div>
+
+      <div class="anatomy-control slider-control">
+        <input id="anatomy-slider" type="range" min="0" max="100" value="0" aria-labelledby="anatomy-label">
+        <label id="anatomy-label" for="anatomy-slider" data-i18n="anatomy">疊加眼球構造圖</label>
+      </div>
+
+      <fieldset class="correction-controls">
+        <legend class="sr-only" data-i18n="correctionLegend">矯正透鏡</legend>
+        <label class="choice"><input id="concave" type="checkbox"><span data-i18n="concaveChoice">顯示近視矯正透鏡（凹透鏡）</span></label>
+        <label class="choice"><input id="convex" type="checkbox"><span data-i18n="convexChoice">顯示遠視矯正透鏡（凸透鏡）</span></label>
+      </fieldset>
+
+      <div class="distance-controls">
+        <div class="slider-control distance-control">
+          <input id="focus-slider" type="range" min="0" max="100" step="0.1" value="10" aria-labelledby="focus-label" aria-describedby="focus-help">
+          <div class="slider-caption"><span data-i18n="near">近</span><label id="focus-label" for="focus-slider" data-i18n="focusDistance">調焦距離</label><span data-i18n="far">遠</span></div>
+          <span id="focus-help" class="sr-only" data-i18n="focusHelp">向近端移動，晶體變厚，折射能力增強；向遠端移動則相反。</span>
+        </div>
+        <div class="slider-control distance-control">
+          <input id="object-slider" type="range" min="0" max="100" step="0.1" value="0" aria-labelledby="object-distance-label">
+          <div class="slider-caption"><span data-i18n="near">近</span><label id="object-distance-label" for="object-slider" data-i18n="objectDistance">物距</label><span data-i18n="far">遠</span></div>
+        </div>
+      </div>
+
+      <fieldset class="vision-controls">
+        <legend class="sr-only" data-i18n="visionLegend">眼睛狀態</legend>
+        <label class="choice"><input type="radio" name="vision" value="normal" checked><span data-i18n="normal">正常視力</span></label>
+        <label class="choice"><input type="radio" name="vision" value="myopia"><span data-i18n="myopia">近視</span></label>
+        <label class="choice"><input type="radio" name="vision" value="hyperopia"><span data-i18n="hyperopia">遠視</span></label>
+      </fieldset>
+
+      <button id="fullscreen" class="fullscreen-button" type="button" aria-label="全螢幕" title="全螢幕">
+        <svg viewBox="0 0 20 20" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M7 3H3v4m10-4h4v4M3 13v4h4m10-4v4h-4"/></svg>
+      </button>
+      </div>
+    </section>
+
+    <div class="simulation-toolbar">
+      <div class="focus-status" role="status" aria-live="polite" aria-atomic="true"><span id="status-dot" class="status-dot"></span><span id="focus-status"></span></div>
+      <div class="toolbar-actions"><button id="best-focus" class="action-button primary" type="button" data-i18n="bestFocus">調節至最清晰</button><button id="reset" class="action-button" type="button" data-i18n="reset">重設</button></div>
+    </div>
+
+    <section class="observation" aria-labelledby="observation-heading">
+      <div class="observation-copy">
+        <h2 id="observation-heading" data-i18n="observe">觀察與解釋</h2>
+        <p id="observation-text"></p>
+        <p id="correction-text" class="correction-note"></p>
+        <p id="accommodation-text" class="accommodation-note"></p>
+      </div>
+      <div class="retinal-image">
+        <span data-i18n="retinalImage">視網膜上的像（示意）</span>
+        <div class="image-screen" aria-hidden="true"><span id="retinal-letter">F</span></div>
+        <span id="clarity-label"></span>
+      </div>
+    </section>
+
+    <section class="learning" aria-labelledby="learning-heading">
+      <div class="learning-heading"><h2 id="learning-heading" data-i18n="learningTitle">試一試：眼睛如何對焦？</h2><span data-i18n="learningHint">選擇情境，再移動滑桿或加入矯正透鏡。</span></div>
+      <div class="lesson-grid">
+        <article class="lesson"><button type="button" data-scenario="near"><span class="lesson-number">01</span><span data-i18n="nearTitle">看近物：晶體變厚</span><svg class="lesson-arrow" viewBox="0 0 20 20" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M5 15L15 5M5 5h10v10"/></svg></button><p data-i18n="nearLesson">近物發出的光線較發散。睫狀肌收縮，懸韌帶鬆弛，晶體變厚，折射能力增強，使光線會聚在視網膜上。</p></article>
+        <article class="lesson"><button type="button" data-scenario="far"><span class="lesson-number">02</span><span data-i18n="farTitle">看遠物：晶體變薄</span><svg class="lesson-arrow" viewBox="0 0 20 20" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M5 15L15 5M5 5h10v10"/></svg></button><p data-i18n="farLesson">遠物射入眼睛的光線較接近平行。睫狀肌鬆弛，懸韌帶繃緊，晶體變薄，折射能力減弱，使像仍成在視網膜上。</p></article>
+        <article class="lesson"><button type="button" data-scenario="myopia"><span class="lesson-number">03</span><span data-i18n="myopiaTitle">近視：用凹透鏡矯正</span><svg class="lesson-arrow" viewBox="0 0 20 20" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M5 15L15 5M5 5h10v10"/></svg></button><p data-i18n="myopiaLesson">眼球過長或晶體過厚，遠物的像成在視網膜前。凹透鏡先使光線發散，令光線經眼睛折射後會聚在視網膜上。</p></article>
+        <article class="lesson"><button type="button" data-scenario="hyperopia"><span class="lesson-number">04</span><span data-i18n="hyperopiaTitle">遠視：用凸透鏡矯正</span><svg class="lesson-arrow" viewBox="0 0 20 20" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M5 15L15 5M5 5h10v10"/></svg></button><p data-i18n="hyperopiaLesson">眼球過短或晶體過薄，看近物時光線尚未會聚便到達視網膜；若延伸，會聚點在視網膜後。凸透鏡先使光線會聚，幫助眼睛對焦。</p></article>
+      </div>
+    </section>
+    <footer><p data-i18n="modelNote">本圖為簡化薄透鏡模型，並非按比例繪製；以晶體代表眼睛的整體聚光作用，實際上角膜也有折射作用。紅線表示光路，虛線表示延伸線。視網膜上的 F 只用來示意清晰程度，並非上方軸上點物體的像。</p><p data-i18n="credit">依據 oPhysics「Optics of the Human Eye」畫面布局獨立重製，無需 GeoGebra。適用於香港高中光學教學。</p></footer>
+  </main>
+  <script type="module" src="app.js"></script>
+</body>
+</html>
