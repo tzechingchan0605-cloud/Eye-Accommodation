@@ -58,8 +58,8 @@
 
       <fieldset class="correction-controls">
         <legend class="sr-only" data-i18n="correctionLegend">矯正透鏡</legend>
-        <label class="choice"><input id="concave" type="checkbox"><span data-i18n="concaveChoice">顯示近視矯正透鏡（凹透鏡）</span></label>
-        <label class="choice"><input id="convex" type="checkbox"><span data-i18n="convexChoice">顯示遠視矯正透鏡（凸透鏡）</span></label>
+        <label class="choice"><input id="concave" type="checkbox"><span data-i18n="concaveChoice">顯示凹透鏡</span></label>
+        <label class="choice"><input id="convex" type="checkbox"><span data-i18n="convexChoice">顯示凸透鏡</span></label>
       </fieldset>
 
       <div class="distance-controls">
@@ -94,10 +94,16 @@
 
     <section class="observation" aria-labelledby="observation-heading">
       <div class="observation-copy">
-        <h2 id="observation-heading" data-i18n="observe">觀察與解釋</h2>
+        <h2 id="observation-heading" data-i18n="observe">第一步：觀察</h2>
         <p id="observation-text"></p>
-        <p id="correction-text" class="correction-note"></p>
-        <p id="accommodation-text" class="accommodation-note"></p>
+        <button id="show-conclusion" class="action-button primary conclusion-button" type="button" aria-expanded="false" aria-controls="conclusion-panel">顯示結論與解釋</button>
+        <div id="conclusion-panel" class="conclusion-panel" role="region" aria-labelledby="conclusion-heading" hidden>
+          <h3 id="conclusion-heading" data-i18n="conclusionHeading">第二步：結論與解釋</h3>
+          <p id="conclusion-text"></p>
+          <p id="vision-text" class="vision-note"></p>
+          <p id="correction-text" class="correction-note"></p>
+          <p id="accommodation-text" class="accommodation-note"></p>
+        </div>
       </div>
       <div class="retinal-image">
         <span data-i18n="retinalImage">視網膜上的像（示意）</span>
@@ -109,13 +115,13 @@
     <section class="learning" aria-labelledby="learning-heading">
       <div class="learning-heading"><h2 id="learning-heading" data-i18n="learningTitle">試一試：眼睛如何對焦？</h2><span data-i18n="learningHint">選擇情境，再移動滑桿或加入矯正透鏡。</span></div>
       <div class="lesson-grid">
-        <article class="lesson"><button type="button" data-scenario="near"><span class="lesson-number">01</span><span data-i18n="nearTitle">看近物：晶體變厚</span><svg class="lesson-arrow" viewBox="0 0 20 20" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M5 15L15 5M5 5h10v10"/></svg></button><p data-i18n="nearLesson">近物發出的光線較發散。睫狀肌收縮，懸韌帶鬆弛，晶體變厚，折射能力增強，使光線會聚在視網膜上。</p></article>
-        <article class="lesson"><button type="button" data-scenario="far"><span class="lesson-number">02</span><span data-i18n="farTitle">看遠物：晶體變薄</span><svg class="lesson-arrow" viewBox="0 0 20 20" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M5 15L15 5M5 5h10v10"/></svg></button><p data-i18n="farLesson">遠物射入眼睛的光線較接近平行。睫狀肌鬆弛，懸韌帶繃緊，晶體變薄，折射能力減弱，使像仍成在視網膜上。</p></article>
-        <article class="lesson"><button type="button" data-scenario="myopia"><span class="lesson-number">03</span><span data-i18n="myopiaTitle">近視：用凹透鏡矯正</span><svg class="lesson-arrow" viewBox="0 0 20 20" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M5 15L15 5M5 5h10v10"/></svg></button><p data-i18n="myopiaLesson">眼球過長或晶體過厚，遠物的像成在視網膜前。凹透鏡先使光線發散，令光線經眼睛折射後會聚在視網膜上。</p></article>
-        <article class="lesson"><button type="button" data-scenario="hyperopia"><span class="lesson-number">04</span><span data-i18n="hyperopiaTitle">遠視：用凸透鏡矯正</span><svg class="lesson-arrow" viewBox="0 0 20 20" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M5 15L15 5M5 5h10v10"/></svg></button><p data-i18n="hyperopiaLesson">眼球過短或晶體過薄，看近物時光線尚未會聚便到達視網膜；若延伸，會聚點在視網膜後。凸透鏡先使光線會聚，幫助眼睛對焦。</p></article>
+        <article class="lesson"><button type="button" data-scenario="near"><span class="lesson-number">01</span><span data-i18n="nearTitle">聚焦近物</span><svg class="lesson-arrow" viewBox="0 0 20 20" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M5 15L15 5M5 5h10v10"/></svg></button><p data-i18n="nearQuestion">物體由遠移近時，光線的發散程度有甚麼改變？要把光線重新聚焦在視網膜上，晶體的厚度和曲率須怎樣改變？</p></article>
+        <article class="lesson"><button type="button" data-scenario="far"><span class="lesson-number">02</span><span data-i18n="farTitle">聚焦遠物</span><svg class="lesson-arrow" viewBox="0 0 20 20" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M5 15L15 5M5 5h10v10"/></svg></button><p data-i18n="farQuestion">物體由近移遠時，射入眼睛的光線有甚麼改變？要保持影像清晰，晶體的厚度和曲率須怎樣改變？</p></article>
+        <article class="lesson"><button type="button" data-scenario="myopia"><span class="lesson-number">03</span><span data-i18n="myopiaTitle">近視的成像與矯正</span><svg class="lesson-arrow" viewBox="0 0 20 20" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M5 15L15 5M5 5h10v10"/></svg></button><p data-i18n="myopiaQuestion">觀察近視眼看遠物時的聚焦位置。分別加入兩種矯正透鏡，哪一種能使光線聚焦在視網膜上？</p></article>
+        <article class="lesson"><button type="button" data-scenario="hyperopia"><span class="lesson-number">04</span><span data-i18n="hyperopiaTitle">遠視的成像與矯正</span><svg class="lesson-arrow" viewBox="0 0 20 20" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M5 15L15 5M5 5h10v10"/></svg></button><p data-i18n="hyperopiaQuestion">觀察遠視眼看近物時的聚焦位置。分別加入兩種矯正透鏡，哪一種能使光線聚焦在視網膜上？</p></article>
       </div>
     </section>
-    <footer><p data-i18n="modelNote">本圖為簡化薄透鏡模型，並非按比例繪製；以晶體代表眼睛的整體聚光作用，實際上角膜也有折射作用。紅線表示光路，虛線表示延伸線。視網膜上的 F 只用來示意清晰程度，並非上方軸上點物體的像。</p><p data-i18n="credit">依據 oPhysics「Optics of the Human Eye」畫面布局獨立重製，無需 GeoGebra。適用於香港高中光學教學。</p></footer>
+    <footer><p data-i18n="modelNote">本圖為簡化薄透鏡模型，並非按比例繪製；以晶體代表眼睛的整體聚光作用，實際上角膜也有折射作用。紅線表示光路，虛線表示延伸線。視網膜上的 F 只用來示意清晰程度，並非上方軸上點物體的像。</p></footer>
   </main>
   <script type="module" src="app.js"></script>
 </body>
