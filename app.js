@@ -243,9 +243,11 @@ for (const button of document.querySelectorAll('[data-scenario]')) button.addEve
   state.focus = bestFocus({ ...state, correction: scenario === 'hyperopia' ? 'hyperopia' : null });
   showingLimit = false;
   render();
-  $('#simulation').scrollIntoView({
+  const simulator = $('#simulation');
+  simulator.scrollIntoView({
     behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth',
-    block: 'start',
+    // Keep the lower sliders and eye-condition controls visible on short screens.
+    block: simulator.getBoundingClientRect().height > window.innerHeight ? 'end' : 'start',
   });
 });
 
